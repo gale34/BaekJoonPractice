@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1494077972 source:c:\baekjoon\p5557\p5557\main.cpp
+	<iostream>
+	<fstream>
+	<cstring>
+
