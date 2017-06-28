@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1498628338 source:c:\users\game\documents\baekjoonpractice\baekjoonpractice\p9518\p9518\main.cpp
+	<iostream>
+	<fstream>
+	<cstring>
+
