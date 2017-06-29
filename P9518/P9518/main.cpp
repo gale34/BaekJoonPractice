@@ -8,17 +8,18 @@ int checkBoundary(char** seats, int x, int y);
 
 int r,s;
 int max_hand = 0;
+int total_hand = 0;
 
 int main()
 {
     int n = 0;
     char** seats;
 
-    ifstream input("input9518.txt");
+    //ifstream input("input9518.txt");
 
-    input >> r >> s;
+    //input >> r >> s;
 
-    //cin >> r >> s;
+    cin >> r >> s;
 
     seats = new char*[r];
 
@@ -32,8 +33,8 @@ int main()
     {
         for(int j = 0; j < s; j++)
         {
-            input >> seats[i][j];
-            //cin >> seats[i][j];
+            //input >> seats[i][j];
+            cin >> seats[i][j];
         }
 
     }
@@ -45,15 +46,10 @@ int main()
             n = checkBoundary(seats,i,j);
             if(n > max_hand)
                 max_hand = n;
-
-            if(max_hand == 8)
-                break;
         }
-        if(max_hand == 8)
-                break;
     }
 
-
+    total_hand += max_hand;
 
     /*for(int i = 0; i < r; i++)
     {
@@ -65,7 +61,7 @@ int main()
         //cin >> number[i];
     }*/
 
-    cout << max_hand;
+    cout << total_hand;
 
     for(int i = 0; i < r; i++)
         delete [] seats[i];
@@ -79,53 +75,111 @@ int checkBoundary(char** seats, int x, int y)
 {
     int n = 0;
 
-    if(x - 1 >= 0 && y - 1 >= 0)
+    if((int)seats[x][y] != 46) // not empty. seat unavailable.
     {
-        if((int)seats[x-1][y-1] == 79)
-            n++;
-    }
+        if(x - 1 >= 0 && y - 1 >= 0)
+        {
+            if((int)seats[x-1][y-1] == 111)
+                n++;
+        }
 
-    if(x - 1 >= 0)
+        if(x - 1 >= 0)
+        {
+            if((int)seats[x-1][y] == 111)
+                n++;
+        }
+
+        if(x - 1 >= 0 && y + 1 < s)
+        {
+            if((int)seats[x-1][y+1] == 111)
+                n++;
+        }
+
+        if(y - 1 >= 0)
+        {
+            if((int)seats[x][y-1] == 111)
+                n++;
+        }
+
+        if(y + 1 < s)
+        {
+            if((int)seats[x][y+1] == 111)
+                n++;
+        }
+
+        if(x + 1 < r && y - 1 >= 0)
+        {
+            if((int)seats[x+1][y-1] == 111)
+                n++;
+        }
+
+        if(x + 1 < r)
+        {
+            if((int)seats[x+1][y] == 111)
+                n++;
+        }
+
+        if(x + 1 < r && y + 1 < s)
+        {
+            if((int)seats[x+1][y+1] == 111)
+                n++;
+        }
+
+        seats[x][y] = 'O';
+        total_hand += n;
+
+        return 0;
+    }
+    else // empty. seat available.
     {
-        if((int)seats[x-1][y] == 79)
-            n++;
-    }
+        if(x - 1 >= 0 && y - 1 >= 0)
+        {
+            if((int)seats[x-1][y-1] != 46)
+                n++;
+        }
 
-    if(x - 1 >= 0 && y + 1 < s)
-    {
-        if((int)seats[x-1][y+1] == 79)
-            n++;
-    }
+        if(x - 1 >= 0)
+        {
+            if((int)seats[x-1][y] != 46)
+                n++;
+        }
 
-     if(y - 1 >= 0)
-    {
-        if((int)seats[x][y-1] == 79)
-            n++;
-    }
+        if(x - 1 >= 0 && y + 1 < s)
+        {
+            if((int)seats[x-1][y+1] != 46)
+                n++;
+        }
 
-    if(y + 1 < s)
-    {
-        if((int)seats[x][y+1] == 79)
-            n++;
-    }
+        if(y - 1 >= 0)
+        {
+            if((int)seats[x][y-1] != 46)
+                n++;
+        }
 
-    if(x + 1 < r && y - 1 >= 0)
-    {
-        if((int)seats[x+1][y-1] == 79)
-            n++;
-    }
+        if(y + 1 < s)
+        {
+            if((int)seats[x][y+1] != 46)
+                n++;
+        }
 
-    if(x + 1 < r)
-    {
-        if((int)seats[x+1][y] == 79)
-            n++;
-    }
+        if(x + 1 < r && y - 1 >= 0)
+        {
+            if((int)seats[x+1][y-1] != 46)
+                n++;
+        }
 
-    if(x + 1 < r && y + 1 < s)
-    {
-        if((int)seats[x+1][y+1] == 79)
-            n++;
-    }
+        if(x + 1 < r)
+        {
+            if((int)seats[x+1][y] != 46)
+                n++;
+        }
 
-    return n;
+        if(x + 1 < r && y + 1 < s)
+        {
+            if((int)seats[x+1][y+1] != 46)
+                n++;
+        }
+
+        return n;
+    }
 }
